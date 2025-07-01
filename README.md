@@ -42,5 +42,5 @@
 - 2.5 mm nut x4
 
 ## Budget
-Running Total Spent: $67.98  
+Running Total Spent: $96.16  
 Predicted Total Cost: $109.72
