@@ -1,18 +1,24 @@
 # Laser-Pointer-Robot
 ## To do
-- [x] change differential to have a bearing on each side, add built in shaft on motor gears
-- [x] add mounting holes for end effector to output gear
-- [x] create mounting plate
-- [x] order hardware
 - [ ] check bearing fit, nut and bolt fits
-- [ ] buy nuts and bolts
-- [x] choose and buy motor microcontroller
-- [x] choose and buy camera microcontroller
 - [ ] buy time of flight sensor
-- [x] fix base (wires outside) so support isn't needed
+- [ ] increase camera fps
+- [ ] create motor driver functions
+    - [ ] function to set direction and speed
+    - [ ] encoder count function
+    - [ ] figure out how to set up interrupt pins
+- [ ] alter camera enclosure
+- [ ] figure out what to do about power cable to camera
+- [ ] create electronics mounting plate
 
 ## CAD
-[Onshape Folder](https://cad.onshape.com/documents?resourceType=folder&nodeId=37651e437204c166a238473c&column=modifiedAt&sortOrder=desc)
+[Link to Onshape Folder](https://cad.onshape.com/documents?resourceType=folder&nodeId=37651e437204c166a238473c&column=modifiedAt&sortOrder=desc)  
+![Differential Drive](images\cad.png)
+
+## Electronics
+![Circuit Diagram](images\circuit_image.png)
+![ESP32 Pinout](images\esp32-wroom-32-pinout.jpg)
+![ESP32 Cam Pinout](images\esp32-CAM-Pinout.webp)
 
 ## Differential Drive BOM
 - [Motor Driver Board](https://www.amazon.com/dp/B0CR6BX5QL?ref=ppx_yo2ov_dt_b_fed_asin_title) - $7.56

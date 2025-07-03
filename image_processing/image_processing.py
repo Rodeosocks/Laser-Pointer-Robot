@@ -4,7 +4,7 @@ import requests
 import helper_functions as f
 
 # URL of the ESP32-CAM capture endpoint
-esp32_cam_url = 'http://192.168.86.35/capture' # <-- REPLACE with your ESP32-CAM's IP address
+esp32_cam_url = 'http://192.168.86.37/capture' # <-- REPLACE with your ESP32-CAM's IP address
 
 # # --- COLOR TRACKING SETUP ---
 # # Define the lower and upper bounds of the color you want to track in RBG.
