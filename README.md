@@ -13,12 +13,12 @@
 
 ## CAD
 [Link to Onshape Folder](https://cad.onshape.com/documents?resourceType=folder&nodeId=37651e437204c166a238473c&column=modifiedAt&sortOrder=desc)  
-![Differential Drive](images\cad.png)
+![Differential Drive](images/cad.png)
 
 ## Electronics
-![Circuit Diagram](images\circuit_image.png)
-![ESP32 Pinout](images\esp32-wroom-32-pinout.jpg)
-![ESP32 Cam Pinout](images\esp32-CAM-Pinout.webp)
+![Circuit Diagram](images/circuit_image.png)
+![ESP32 Pinout](images/esp32-wroom-32-pinout.jpg)
+![ESP32 Cam Pinout](images/esp32-CAM-Pinout.webp)
 
 ## Differential Drive BOM
 - [Motor Driver Board](https://www.amazon.com/dp/B0CR6BX5QL?ref=ppx_yo2ov_dt_b_fed_asin_title) - $7.56
