@@ -1,12 +1,7 @@
 # Laser-Pointer-Robot
 ## To do
-- [ ] check bearing fit, nut and bolt fits
 - [ ] buy time of flight sensor
 - [ ] increase camera fps
-- [ ] create motor driver functions
-    - [ ] function to set direction and speed
-    - [ ] encoder count function
-    - [ ] figure out how to set up interrupt pins
 - [ ] alter camera enclosure
 - [ ] figure out what to do about power cable to camera
 - [ ] create electronics mounting plate
