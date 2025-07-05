@@ -11,7 +11,7 @@
 ![Differential Drive](images/cad.png)
 
 ## Electronics
-![Circuit Diagram](images/circuit_image.png)
+![Circuit Diagram](images/circuit_diagram.png)
 ![ESP32 Pinout](images/esp32-wroom-32-pinout.jpg)
 ![](images/esp32-CAM-Pinout.webp)
 

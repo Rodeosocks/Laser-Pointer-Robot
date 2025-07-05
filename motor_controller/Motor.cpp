@@ -15,7 +15,6 @@ Motor::Motor(int IN1_PIN, int IN2_PIN, int EN_PIN, int ENC_A_PIN, int ENC_B_PIN,
   this->ENC_B_PIN = ENC_B_PIN;
   this->encoder = encoder;
   int count = 0;
-  bool prev_b = digitalRead(ENC_B_PIN);
 }
 
 void Motor::init() {
@@ -52,7 +51,34 @@ void Motor::stop() {
 }
 
 void Motor::print_count() {
-  long newPosition = encoder.getCount() / 2;
-  Serial.println(newPosition);
-  delay(1);
+  // long newPosition = encoder.getCount() / 2; // FIXME
+  Serial.println(encoder.getCount() / 2);
+}
+
+bool Motor::go_to_angle(float target_angle) {
+  if (started_move == false) {
+    // Convert angle (in deg) to encoder count
+    int target_encoder_diff = int(round(target_angle * (1 / 360.0) * 960.0));
+    started_move = true;
+    target_encoder_count = target_encoder_diff + (encoder.getCount() / 2);
+  }
+
+  // Constant speed control until tolerance is reach (tol ~= +/- 1 deg)
+  int error = target_encoder_count - (encoder.getCount() / 2);
+  // Serial.println(error);
+
+  if (abs(error) > 3) {
+    completed_move = false;
+    if (error > 0) {
+      forward(0.5);
+    } else {
+      backward(0.5);
+    }
+  } else {
+    stop();
+    started_move = false;
+    completed_move = true;
+  }
+
+  return completed_move;
 }

@@ -6,72 +6,115 @@
 int enA = 17;
 int in1 = 16;
 int in2 = 4;
-
+int enc1A = 21;
+int enc1B = 19;
 // Motor 2
 int enB = 15;
 int in3 = 0;
-int in4 = 2;
-int encA = 18;
-int encB = 5;
+int in4 = 3;
+int enc2A = 18;
+int enc2B = 5;
 
+// Initialize global varaibles
+int state = 0;
+bool completed_move_m1 = false;
+bool completed_move_m2 = false;
+bool completed_move = false;
+
+// Instatiate objects
 // Create encoder objects
+ESP32Encoder encoder1;
 ESP32Encoder encoder2;
-
 // Create motor objects
-Motor motor1(in1, in2, enA);
-Motor motor2(in3, in4, enB, encA, encB, encoder2);
+Motor motor1(in1, in2, enA, enc1A, enc1B, encoder1);
+Motor motor2(in3, in4, enB, enc2A, enc2B, encoder2);
 
 void setup() {
   Serial.begin(115200);
   motor1.init();
   motor2.init();
-  motor2.forward(0.3);
 }
 
 void loop() {
-  motor2.print_count();
-  // Serial.println("speed=30%, 100%");
-  // motor1.backward(0.3);
-  // motor2.forward(1.0);
-  // delay(2000);
+  switch (state) {
+    case 0:
+      {
+        if ((completed_move_m1 == false) || (completed_move_m2 == false)) {
+          // Serial.println("Executing state 0");
+          if (completed_move_m1 == false) {
+            completed_move_m1 = motor1.go_to_angle(90.0);
+          }
+          if (completed_move_m2 == false) {
+            completed_move_m2 = motor2.go_to_angle(90.0);
+          }
+        } else {
+          state = 1;
+          completed_move_m1 = false;
+          completed_move_m2 = false;
+          Serial.println("\n--- Yaw0 rotation complete ---\n");
+          delay(1000);
+        }
+      }
+      break;
 
-  // Serial.println("speed=40%, 90%");
-  // motor1.backward(0.4);
-  // motor2.forward(0.9);
-  // delay(2000);
+    case 1:
+      {
+        if ((completed_move_m1 == false) || (completed_move_m2 == false)) {
+          // Serial.println("Executing state 1");
+          if (completed_move_m1 == false) {
+            completed_move_m1 = motor1.go_to_angle(-90.0);
+          }
+          if (completed_move_m2 == false) {
+            completed_move_m2 = motor2.go_to_angle(90.0);
+          }
+        } else {
+          state = 2;
+          completed_move_m1 = false;
+          completed_move_m2 = false;
+          Serial.println("\n--- Pitch1 rotation complete ---\n");
+          delay(1000);
+        }
+      }
+      break;
 
-  // Serial.println("speed=50%, 80%");
-  // motor1.backward(0.5);
-  // motor2.forward(0.8);
-  // delay(2000);
+    case 2:
+      {
+        if ((completed_move_m1 == false) || (completed_move_m2 == false)) {
+          // Serial.println("Executing state 3");
+          if (completed_move_m1 == false) {
+            completed_move_m1 = motor1.go_to_angle(-270.0);
+          }
+          if (completed_move_m2 == false) {
+            completed_move_m2 = motor2.go_to_angle(-270.0);
+          }
+        } else {
+          state = 3;
+          completed_move_m1 = false;
+          completed_move_m2 = false;
+          Serial.println("\n--- Yaw2 rotation complete ---\n");
+          delay(1000);
+        }
+      }
+      break;
 
-  // Serial.println("speed=60%, 70%");
-  // motor1.backward(0.6);
-  // motor2.forward(0.7);
-  // delay(2000);
-
-  // Serial.println("speed=70%, 60%");
-  // motor1.backward(0.7);
-  // motor2.forward(0.6);
-  // delay(2000);
-
-  // Serial.println("speed=80%, 50%");
-  // motor1.backward(0.8);
-  // motor2.forward(0.5);
-  // delay(2000);
-
-  // Serial.println("speed=90%, 40%");
-  // motor1.backward(0.9);
-  // motor2.forward(0.4);
-  // delay(2000);
-
-  // Serial.println("speed=100%, 30%");
-  // motor1.backward(1.0);
-  // motor2.forward(0.3);
-  // delay(2000);
-
-  // Serial.println("--- OFF ---\n");
-  // motor1.stop();
-  // motor2.stop();
-  // delay(5000);
+    case 3:
+      {
+        if ((completed_move_m1 == false) || (completed_move_m2 == false)) {
+          // Serial.println("Executing state 3");
+          if (completed_move_m1 == false) {
+            completed_move_m1 = motor1.go_to_angle(90.0);
+          }
+          if (completed_move_m2 == false) {
+            completed_move_m2 = motor2.go_to_angle(-90.0);
+          }
+        } else {
+          state = 0;
+          completed_move_m1 = false;
+          completed_move_m2 = false;
+          Serial.println("\n--- Pitch3 rotation complete ---\n");
+          delay(1000);
+        }
+      }
+      break;
+  }
 }
