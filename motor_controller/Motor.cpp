@@ -51,7 +51,6 @@ void Motor::stop() {
 }
 
 void Motor::print_count() {
-  // long newPosition = encoder.getCount() / 2; // FIXME
   Serial.println(encoder.getCount() / 2);
 }
 
@@ -65,14 +64,22 @@ bool Motor::go_to_angle(float target_angle) {
 
   // Constant speed control until tolerance is reach (tol ~= +/- 1 deg)
   int error = target_encoder_count - (encoder.getCount() / 2);
+  float speed = error * (1/240.0);
   // Serial.println(error);
 
   if (abs(error) > 3) {
     completed_move = false;
     if (error > 0) {
-      forward(0.5);
+      // forward(0.5);
+      // forward(abs(speed));
+      Serial.print("forward: ");
+      Serial.println(speed);
+      
     } else {
-      backward(0.5);
+      // backward(0.5);
+      // backward(abs(speed));
+      Serial.print("backward");
+      Serial.println(speed);
     }
   } else {
     stop();
