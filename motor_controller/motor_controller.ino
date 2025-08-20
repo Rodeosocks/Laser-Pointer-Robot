@@ -1,19 +1,20 @@
 // Import classes
 #include "Motor.h"
+#include "EndEffector.h"
 
 // Declare pin numbers
 // Motor 1
 int enA = 15;
-int in1 = 4;
+int in1 = 3;
 int in2 = 0;
-int enc1A = 18;
-int enc1B = 5;
+int enc1A = 21;
+int enc1B = 19;
 // Motor 2
 int enB = 17;
-int in3 = 0;
+int in3 = 4;
 int in4 = 16;
-int enc2A = 21;
-int enc2B = 19;
+int enc2A = 18;
+int enc2B = 5;
 
 // Initialize global varaibles
 int state = 0;
@@ -38,13 +39,14 @@ void setup() {
 }
 
 void loop() {
-  // if (completed_move_m1 == false) {
-  //   completed_move_m1 = motor1.go_to_angle(90.0);
-  // }
-  // else {
-  //   Serial.println("Move Complete");
-  // }
-  motor2.print_count();
+  if (completed_move_m2 == false) {
+    completed_move_m2 = motor1.go_to_angle(-90.0);
+  }
+  else {
+    // Serial.println("Move Complete");
+  }
+  // motor2.print_count();
+  // motor2.backward(0.5);
 
   // switch (state) {
   //   case 0:

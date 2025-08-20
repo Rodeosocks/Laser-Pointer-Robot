@@ -1,4 +1,5 @@
 #include "Motor.h"
+#include <math.h>
 
 Motor::Motor(int IN1_PIN, int IN2_PIN, int EN_PIN) {
   this->IN1_PIN = IN1_PIN;
@@ -60,26 +61,22 @@ bool Motor::go_to_angle(float target_angle) {
     int target_encoder_diff = int(round(target_angle * (1 / 360.0) * 960.0));
     started_move = true;
     target_encoder_count = target_encoder_diff + (encoder.getCount() / 2);
+    prev_error = target_encoder_count - (encoder.getCount() / 2);
+    prev_time = micros();
   }
 
   // Constant speed control until tolerance is reach (tol ~= +/- 1 deg)
   int error = target_encoder_count - (encoder.getCount() / 2);
-  float speed = error * (1/240.0);
-  // Serial.println(error);
+  unsigned long time = micros();
+  float d_error = -1.0 * (float(error) - float(prev_error)) / (time - prev_time);
+  float speed = (error * (1 / 345.0)) + (d_error * 10);
 
   if (abs(error) > 3) {
     completed_move = false;
     if (error > 0) {
-      // forward(0.5);
-      // forward(abs(speed));
-      Serial.print("forward: ");
-      Serial.println(speed);
-      
+      forward(abs(speed));
     } else {
-      // backward(0.5);
-      // backward(abs(speed));
-      Serial.print("backward");
-      Serial.println(speed);
+      backward(abs(speed));
     }
   } else {
     stop();
@@ -87,5 +84,18 @@ bool Motor::go_to_angle(float target_angle) {
     completed_move = true;
   }
 
+  prev_error = error;
+  prev_time = time;
   return completed_move;
+}
+
+float Motor::get_angle() {
+  int enc_count = encoder.getCount() / 2;
+  float large_angle = (360.0 / 960.0) * float(enc_count);
+  // normalize angle from 0 -> 360
+  float angle = fmod(large_angle, 360.0);
+  if (angle < 0) {
+    angle += 360.0;
+  }
+  return angle;
 }
