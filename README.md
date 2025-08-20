@@ -1,10 +1,13 @@
 # Laser-Pointer-Robot
 ## To do
+- [ ] finish physical design
+- [ ] physically assemble it
+- [ ] create trajectory generator function
 - [ ] buy time of flight sensor
 - [ ] increase camera fps
-- [ ] alter camera enclosure
-- [ ] figure out what to do about power cable to camera
-- [ ] create electronics mounting plate
+- [x] alter camera enclosure
+- [x] figure out what to do about power cable to camera
+- [x] create electronics mounting plate
 
 ## CAD
 [Link to Onshape Folder](https://cad.onshape.com/documents?resourceType=folder&nodeId=37651e437204c166a238473c&column=modifiedAt&sortOrder=desc)  
@@ -14,6 +17,20 @@
 ![Circuit Diagram](images/circuit_diagram.png)
 ![ESP32 Pinout](images/esp32-wroom-32-pinout.jpg)
 ![](images/esp32-CAM-Pinout.webp)
+
+### Pin Table
+| Pin Number   | Connection        |
+| :----------: | :---------------: |
+| 0            | IN2 (motor driver)|
+| 3            | IN1 (motor driver)|
+| 4            | IN3 (motor driver)|
+| 5            | EncoderB (motor 2)|
+| 15           | ENA (motor driver)|
+| 16           | IN4 (motor driver)|
+| 17           | ENB (motor driver)|
+| 18           | EncoderA (motor 2)|
+| 19           | EncoderB (motor 1)|
+| 21           | EncoderA (motor 1)|
 
 ## Differential Drive BOM
 - [Motor Driver Board](https://www.amazon.com/dp/B0CR6BX5QL?ref=ppx_yo2ov_dt_b_fed_asin_title) - $7.56
@@ -33,14 +50,6 @@
 - [Buck converter](https://www.amazon.com/Converter-Adjustable-Regulator-Voltmeter-Display%EF%BC%88Pack/dp/B0F1M2SR31?crid=1EOYSLZX2J4PY&dib=eyJ2IjoiMSJ9.WFmcMhr5wKG96ZSaMiTTM3Rk3hGcs4Yrw2gcYfWnbx0ZowT_5YmQO2gRxsGOGVqLCN2fWbkwPqU9Q1j7T_Jx0zWI86ihngTihciOiq0XkFQrBRyQ3ecXoOsMy6PZcK--ndXGiCltqv80zyV03yGiSdrgZxOZvxaoql6QG5GR8mNndIP6dBLmBB82gX0ir067DyO8iL7iOiXBMQC4DIZgjQpTBu5AH0KJUc03CnhvA4Gm48zMWavzZ6MHZnxkoBybULSZMuK4x41Z0M4-ZJP7NVP1lvyYOPYXN7FRYj0CPLI.U2brYK_R95NuAvd8chyqYuLHba5CnVMY267DfeE9Alk&dib_tag=se&keywords=LM2596%2Bbuck%2Bconverter&qid=1751341145&s=electronics&sprefix=lm2596%2Bbuck%2Bconverter%2Bdisplay%2Celectronics%2C252&sr=1-8&th=1) - $7.99
 
 - [Wheels](https://www.amazon.com/ThtRht-Motor-Wheels-Replacement-Smart/dp/B0CG1C7T8J?crid=1PKGH2WU5PFUA&dib=eyJ2IjoiMSJ9.ZrpNmrbicccc2COTV1s2mA9WoJ1DIenbM3cm4ELldtSWugJtx9H5OBLGENUTYFFMlC6O_5zXXe2FUy_6uJbvNwwANohFr5KnYgBUasKJuyWke1iPjHwYBhp4D9SHaLfDCvMaxAzw4fmaTe25qvc9wsKNkHHxZ7vJF0MgBEM7Snz0cF1OrxPffPRl5qvE1C3tEDTP2uA-ZGugOelWcl4dtOlsKqq2tmqK2mJ9uY5iHyjwlzKurELygKR8unm249wl-p8-efPSrcLdckJR9MSe2Vt8C93WIufyJ52xjVt3sH0.LKpFzldROazfCKJeXrzehNdedx1sp1oJZGIjJE000lI&dib_tag=se&keywords=tt+motor+wheel&qid=1751340564&sprefix=tt+motor+wheel%2Caps%2C137&sr=8-1#averageCustomerReviewsAnchor) - $8.97
-
-### Hardware Needed
-- 1/4-20 bolt x1
-- 1/4-20 nut x1
-- #8 bolt x2
-- #8 nut x2
-- 2.5 mm bolt x4
-- 2.5 mm nut x4
 
 ## Budget
 Running Total Spent: $96.16  
