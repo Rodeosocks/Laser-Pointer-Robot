@@ -13,7 +13,7 @@ private:
   int ENC_B_PIN;
   ESP32Encoder encoder;
   bool started_move;
-  bool completed_move;
+  bool completed_move = false;
   int target_encoder_count;
   int prev_error;
   unsigned long prev_time;
@@ -29,6 +29,7 @@ public:
   bool go_to_angle(float target_angle);
   int create_trajectory(float target_angle);
   float get_angle();
+  int get_count();
 };
 
 #endif

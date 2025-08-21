@@ -31,7 +31,7 @@ void Motor::init() {
 
 void Motor::forward(float speed) {
   speed = 1000 * constrain(speed, 0.0, 1.0);
-  int speed_mapped = map(speed, 0, 1000, 0, 255);
+  int speed_mapped = map(speed, 0, 1000, 76, 255);
   analogWrite(EN_PIN, speed_mapped);
   digitalWrite(IN2_PIN, LOW);
   digitalWrite(IN1_PIN, HIGH);
@@ -39,7 +39,7 @@ void Motor::forward(float speed) {
 
 void Motor::backward(float speed) {
   speed = 1000 * constrain(speed, 0.0, 1.0);
-  int speed_mapped = map(speed, 0, 1000, 0, 255);
+  int speed_mapped = map(speed, 0, 1000, 76, 255);
   analogWrite(EN_PIN, speed_mapped);
   digitalWrite(IN2_PIN, HIGH);
   digitalWrite(IN1_PIN, LOW);
@@ -92,10 +92,14 @@ bool Motor::go_to_angle(float target_angle) {
 float Motor::get_angle() {
   int enc_count = encoder.getCount() / 2;
   float large_angle = (360.0 / 960.0) * float(enc_count);
-  // normalize angle from 0 -> 360
+  // normalize angle from -180 -> 180
   float angle = fmod(large_angle, 360.0);
-  if (angle < 0) {
+  if (angle < -180.0) {
     angle += 360.0;
   }
   return angle;
+}
+
+int Motor::get_count() {
+  return (encoder.getCount() / 2);
 }

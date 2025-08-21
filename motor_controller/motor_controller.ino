@@ -17,10 +17,11 @@ int enc2A = 18;
 int enc2B = 5;
 
 // Initialize global varaibles
-int state = 0;
-bool completed_move_m1 = false;
-bool completed_move_m2 = false;
 bool completed_move = false;
+float control_time_step = 1000.0; // microseconds
+unsigned long prev_time;
+unsigned long time_diff;
+bool already_printed = false;
 
 // Instatiate objects
 // Create encoder objects
@@ -29,104 +30,25 @@ ESP32Encoder encoder2;
 // Create motor objects
 Motor motor1(in1, in2, enA, enc1A, enc1B, encoder1);
 Motor motor2(in3, in4, enB, enc2A, enc2B, encoder2);
+// Create end effector object
+EndEffector camera(motor1, motor2);
 
 void setup() {
   Serial.begin(115200);
   motor1.init();
   motor2.init();
-  // Serial.println("Starting 5s delay...");
-  // delay(5000);
+  prev_time = micros();
 }
 
 void loop() {
-  if (completed_move_m2 == false) {
-    completed_move_m2 = motor1.go_to_angle(-90.0);
+  time_diff = micros() - prev_time;
+
+  
+  if ((completed_move == false) && (time_diff >= control_time_step)) {
+    completed_move = camera.go_to_pose(0.0, -90.0, 0.5, control_time_step);
+    prev_time = micros();
+  } else if ((completed_move == true) && (already_printed == false)) {
+    Serial.println("Move Complete");
+    already_printed = true;
   }
-  else {
-    // Serial.println("Move Complete");
-  }
-  // motor2.print_count();
-  // motor2.backward(0.5);
-
-  // switch (state) {
-  //   case 0:
-  //     {
-  //       if ((completed_move_m1 == false) || (completed_move_m2 == false)) {
-  //         // Serial.println("Executing state 0");
-  //         if (completed_move_m1 == false) {
-  //           completed_move_m1 = motor1.go_to_angle(90.0);
-  //         }
-  //         if (completed_move_m2 == false) {
-  //           completed_move_m2 = motor2.go_to_angle(90.0);
-  //         }
-  //       } else {
-  //         state = 1;
-  //         completed_move_m1 = false;
-  //         completed_move_m2 = false;
-  //         Serial.println("\n--- Yaw0 rotation complete ---\n");
-  //         delay(1000);
-  //       }
-  //     }
-  //     break;
-
-  //   case 1:
-  //     {
-  //       if ((completed_move_m1 == false) || (completed_move_m2 == false)) {
-  //         // Serial.println("Executing state 1");
-  //         if (completed_move_m1 == false) {
-  //           completed_move_m1 = motor1.go_to_angle(-90.0);
-  //         }
-  //         if (completed_move_m2 == false) {
-  //           completed_move_m2 = motor2.go_to_angle(90.0);
-  //         }
-  //       } else {
-  //         state = 2;
-  //         completed_move_m1 = false;
-  //         completed_move_m2 = false;
-  //         Serial.println("\n--- Pitch1 rotation complete ---\n");
-  //         delay(1000);
-  //       }
-  //     }
-  //     break;
-
-  //   case 2:
-  //     {
-  //       if ((completed_move_m1 == false) || (completed_move_m2 == false)) {
-  //         // Serial.println("Executing state 3");
-  //         if (completed_move_m1 == false) {
-  //           completed_move_m1 = motor1.go_to_angle(-270.0);
-  //         }
-  //         if (completed_move_m2 == false) {
-  //           completed_move_m2 = motor2.go_to_angle(-270.0);
-  //         }
-  //       } else {
-  //         state = 3;
-  //         completed_move_m1 = false;
-  //         completed_move_m2 = false;
-  //         Serial.println("\n--- Yaw2 rotation complete ---\n");
-  //         delay(1000);
-  //       }
-  //     }
-  //     break;
-
-  //   case 3:
-  //     {
-  //       if ((completed_move_m1 == false) || (completed_move_m2 == false)) {
-  //         // Serial.println("Executing state 3");
-  //         if (completed_move_m1 == false) {
-  //           completed_move_m1 = motor1.go_to_angle(90.0);
-  //         }
-  //         if (completed_move_m2 == false) {
-  //           completed_move_m2 = motor2.go_to_angle(-90.0);
-  //         }
-  //       } else {
-  //         state = 0;
-  //         completed_move_m1 = false;
-  //         completed_move_m2 = false;
-  //         Serial.println("\n--- Pitch3 rotation complete ---\n");
-  //         delay(1000);
-  //       }
-  //     }
-  //     break;
-  // }
 }
